@@ -45,10 +45,17 @@ public:
 		ListNode* list1 = l1;
 		ListNode* list2 = l2;
 
-		while (list1->val && list2->val) {
+		while (list1->val || list2->val || carryDigit) {
 			sum = list1->val + list2->val + carryDigit;
+			carryDigit = 0; // Reset carryDigit
 
-			currNode = new ListNode(sum % 10);
+			// Convert the 10 to a carryDigit
+			if (sum >= 10) {
+				carryDigit = 1;
+				sum = sum - 10;
+			}
+
+			currNode = new ListNode(sum);
 
 			if (list1->next) {
 				list1 = list1->next;
@@ -76,9 +83,8 @@ public:
 			}
 		}
 
-		std::cout << resultList->val << " ";
-		std::cout << resultList->next->val << " ";
-		std::cout << resultList->next->next->val << " ";
+		//For testing, print result LinkedList
+		std::cout << "[" << resultList->val << "," << resultList->next->val << "," << resultList->next->next->val << "]\n"; 
 		return resultList;
 	}
 };
