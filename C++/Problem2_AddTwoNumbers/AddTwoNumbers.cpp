@@ -34,19 +34,13 @@ class Solution {
 public:
 	ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 		ListNode* resultList = new ListNode(NULL);
-		ListNode* lastNode = new ListNode(NULL);
-		ListNode* currNode = new ListNode(NULL);
-		ListNode* nextNode = new ListNode(NULL);
+		ListNode* currNode = resultList;
 		ListNode* zeroNode = new ListNode(0);
-
-		int sum = 0;
 		int carryDigit = 0;
+		int sum;
 
-		ListNode* list1 = l1;
-		ListNode* list2 = l2;
-
-		while (list1->val || list2->val || carryDigit) {
-			sum = list1->val + list2->val + carryDigit;
+		while (l1 != zeroNode || l2 != zeroNode || carryDigit) {
+			sum = l1->val + l2->val + carryDigit;
 			carryDigit = 0; // Reset carryDigit
 
 			// Convert the 10 to a carryDigit
@@ -55,44 +49,33 @@ public:
 				sum = sum - 10;
 			}
 
-			currNode = new ListNode(sum);
-
-			if (list1->next) {
-				list1 = list1->next;
+			if (l1->next) {
+				l1 = l1->next;
 			}
 			else {
-				list1 = zeroNode;
+				l1 = zeroNode;
 			}
 
-			if (list2->next) {
-				list2 = list2->next;
+			if (l2->next) {
+				l2 = l2->next;
 			}
 			else {
-				list2 = zeroNode;
+				l2 = zeroNode;
 			}
 
-			// First time through set Head Node
-			if (resultList->next == nullptr) {
-				resultList = currNode;
-				resultList->next = lastNode;
-			}
-			else {
-				lastNode->val = currNode->val;
-				lastNode->next = nextNode;
-				lastNode = lastNode->next;
-			}
+			currNode->next = new ListNode(sum);
+			currNode = currNode->next;
 		}
 
-		//For testing, print result LinkedList
-		std::cout << "[" << resultList->val << "," << resultList->next->val << "," << resultList->next->next->val << "]\n"; 
-		return resultList;
+		return resultList->next;
 	}
 };
 
 int main() {
 	Solution solution;
 
-	// Test Case: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+	// Test Case 1: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+	/*
 	ListNode* l1n1 = new ListNode(2);
 	ListNode* l1n2 = new ListNode(4);
 	ListNode* l1n3 = new ListNode(3);
@@ -106,6 +89,14 @@ int main() {
 	l2n1->next = l2n2;
 	l2n2->next = l2n3;
 	l2n3->next = NULL;
+	*/
+
+	// Test Case 2: (0) + (0)
+	ListNode* l1n1 = new ListNode(0);
+	l1n1->next = NULL;
+
+	ListNode* l2n1 = new ListNode(0);
+	l2n1->next = NULL;
 
 	solution.addTwoNumbers(l1n1, l2n1);
 
