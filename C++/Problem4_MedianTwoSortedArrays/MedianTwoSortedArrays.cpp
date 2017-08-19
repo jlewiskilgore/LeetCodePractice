@@ -56,11 +56,11 @@ public:
 				nums1Index++;
 			}
 			// Compare elements to find next "searched"
-			else if (nums1[nums1Index] < nums2[nums2Index]) {
+			else if (nums1[nums1Index] <= nums2[nums2Index]) {
 				medianValue = nums1[nums1Index];
 				nums1Index++;
 			}
-			else if (nums1[nums1Index] > nums2[nums2Index]) {
+			else if (nums1[nums1Index] >= nums2[nums2Index]) {
 				medianValue = nums2[nums2Index];
 				nums2Index++;
 			}
@@ -123,8 +123,8 @@ int main() {
 	std::vector<int> test4_nums1 = { 1 };
 	std::vector<int> test4_nums2 = { 1 };
 
-	//double test4_result = solution.findMedianSortedArrays(test4_nums1, test4_nums2);
-	//std::cout << "Result: " << test4_result << "\n";
+	double test4_result = solution.findMedianSortedArrays(test4_nums1, test4_nums2);
+	std::cout << "Result: " << test4_result << "\n";
 
 
 
