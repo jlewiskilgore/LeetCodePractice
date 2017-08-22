@@ -13,18 +13,24 @@ You may assume the maximum length of s is 1000.
 class Solution {
 public:
 	std::string longestPalindrome(std::string s) {
-		//int result = isSubstringPalindrome(s, 1, 3);
-		//std::cout << "result: " << result << "\n";
-		return "test";
+		int lengthLongSubstr = 0;
+		
+		std::string result = isSubstringPalindrome(s, 1, 3);
+		lengthLongSubstr = result.length();
+		std::cout << "result: " << result << "\n";
+		return result;
 	}
 
 private:
-	int isSubstringPalindrome(std::string subStr, int startIndex, int endIndex) {
-		std::cout << subStr;
-		for (int i = 0; i < (subStr.length())/2; i++) {
-			std::cout << i;
+	std::string isSubstringPalindrome(std::string fullStr, int startIndex, int endIndex) {
+		std::string subStr = fullStr.substr(startIndex, (endIndex - startIndex + 1));
+		std::string revStr;
+
+		for (int i = (subStr.length() - 1); i >= 0; i--) {
+			revStr += subStr[i];
 		}
-		return 1;
+
+		return (subStr == revStr)? subStr : "";
 	}
 };
 
