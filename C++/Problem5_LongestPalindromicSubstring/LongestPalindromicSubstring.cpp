@@ -14,11 +14,19 @@ class Solution {
 public:
 	std::string longestPalindrome(std::string s) {
 		int lengthLongSubstr = 0;
+		std::string longSubstr = "";
 		
-		std::string result = isSubstringPalindrome(s, 1, 3);
-		lengthLongSubstr = result.length();
-		std::cout << "result: " << result << "\n";
-		return result;
+		for (int i = 0; i < s.length(); i++) {
+			for (int j = i; j < s.length(); j++) {
+				std::string result = isSubstringPalindrome(s, i, j);
+				if (result.length() > lengthLongSubstr) {
+					lengthLongSubstr = result.length();
+					longSubstr = result;
+					//std::cout << "new result: " << longSubstr << "\n";
+				}
+			}
+		}
+		return longSubstr;
 	}
 
 private:
@@ -43,7 +51,31 @@ int main() {
 	Expected Output: "bab" or "aba"
 	*/
 	std::string testInput1("babad");
-	solution.longestPalindrome("babad");
+	std::string testResult1 = solution.longestPalindrome(testInput1);
+	std::cout << "Test Result 1: " << testResult1 << "\n";
+
+	/*
+	Test Case 2:
+	Input: "cbbd"
+	Expected Output: "bb"
+	*/
+	std::string testInput2("cbbd");
+	std::string testResult2 = solution.longestPalindrome(testInput2);
+	std::cout << "Test Result 2: " << testResult2 << "\n";
+
+	/*
+	Test Case 3:
+	Input: "jglknendplocymmvwtoxvebkekzfdhykknufqdkntnqvgfbahsljkobhbxkvyictzkq
+	jqydczuxjkgecdyhixdttxfqmgksrkyvopwprsgoszftuhawflzjyuyrujrxluhzjvbflxgcovi
+	lthvuihzttzithnsqbdxtafxrfrblulsakrahulwthhbjcslceewxfxtavljpimaqqlcbrdgtgj
+	ryjytgxljxtravwdlnrrauxplempnbfeusgtqzjtzshwieutxdytlrrqvyemlyzolhbkzhyfytt
+	evqnfvmpqjngcnazmaagwihxrhmcibyfkccyrqwnzlzqeuenhwlzhbxqxerfifzncimwqsfatud
+	jihtumrtjtggzleovihifxufvwqeimbxvzlxwcsknksogsbwwdlwulnetdysvsfkonggeedtshx
+	qkgbhoscjgpiel"
+	*/
+	std::string testInput3("jglknendplocymmvwtoxvebkekzfdhykknufqdkntnqvgfbahsljkobhbxkvyictzkqjqydczuxjkgecdyhixdttxfqmgksrkyvopwprsgoszftuhawflzjyuyrujrxluhzjvbflxgcovilthvuihzttzithnsqbdxtafxrfrblulsakrahulwthhbjcslceewxfxtavljpimaqqlcbrdgtgjryjytgxljxtravwdlnrrauxplempnbfeusgtqzjtzshwieutxdytlrrqvyemlyzolhbkzhyfyttevqnfvmpqjngcnazmaagwihxrhmcibyfkccyrqwnzlzqeuenhwlzhbxqxerfifzncimwqsfatudjihtumrtjtggzleovihifxufvwqeimbxvzlxwcsknksogsbwwdlwulnetdysvsfkonggeedtshxqkgbhoscjgpiel");
+	std::string testResult3 = solution.longestPalindrome(testInput3);
+	std::cout << "Test Result 3: " << testResult3 << "\n";
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
