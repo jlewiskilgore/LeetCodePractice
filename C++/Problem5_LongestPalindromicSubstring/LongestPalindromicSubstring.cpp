@@ -12,7 +12,7 @@ You may assume the maximum length of s is 1000.
 
 class Solution {
 public:
-	std::string longestPalindrome(std::string s) {
+	std::string longestPalindromeBruteForce(std::string s) {
 		int lengthLongSubstr = 0;
 		std::string longSubstr = "";
 		
@@ -32,11 +32,9 @@ public:
 private:
 	std::string isSubstringPalindrome(std::string fullStr, int startIndex, int endIndex) {
 		std::string subStr = fullStr.substr(startIndex, (endIndex - startIndex + 1));
-		std::string revStr;
+		std::string revStr = subStr;
 
-		for (int i = (subStr.length() - 1); i >= 0; i--) {
-			revStr += subStr[i];
-		}
+		std::reverse(revStr.begin(), revStr.end());
 
 		return (subStr == revStr)? subStr : "";
 	}
@@ -51,7 +49,7 @@ int main() {
 	Expected Output: "bab" or "aba"
 	*/
 	std::string testInput1("babad");
-	std::string testResult1 = solution.longestPalindrome(testInput1);
+	std::string testResult1 = solution.longestPalindromeBruteForce(testInput1);
 	std::cout << "Test Result 1: " << testResult1 << "\n";
 
 	/*
@@ -60,7 +58,7 @@ int main() {
 	Expected Output: "bb"
 	*/
 	std::string testInput2("cbbd");
-	std::string testResult2 = solution.longestPalindrome(testInput2);
+	std::string testResult2 = solution.longestPalindromeBruteForce(testInput2);
 	std::cout << "Test Result 2: " << testResult2 << "\n";
 
 	/*
@@ -74,7 +72,7 @@ int main() {
 	qkgbhoscjgpiel"
 	*/
 	std::string testInput3("jglknendplocymmvwtoxvebkekzfdhykknufqdkntnqvgfbahsljkobhbxkvyictzkqjqydczuxjkgecdyhixdttxfqmgksrkyvopwprsgoszftuhawflzjyuyrujrxluhzjvbflxgcovilthvuihzttzithnsqbdxtafxrfrblulsakrahulwthhbjcslceewxfxtavljpimaqqlcbrdgtgjryjytgxljxtravwdlnrrauxplempnbfeusgtqzjtzshwieutxdytlrrqvyemlyzolhbkzhyfyttevqnfvmpqjngcnazmaagwihxrhmcibyfkccyrqwnzlzqeuenhwlzhbxqxerfifzncimwqsfatudjihtumrtjtggzleovihifxufvwqeimbxvzlxwcsknksogsbwwdlwulnetdysvsfkonggeedtshxqkgbhoscjgpiel");
-	std::string testResult3 = solution.longestPalindrome(testInput3);
+	std::string testResult3 = solution.longestPalindromeBruteForce(testInput3);
 	std::cout << "Test Result 3: " << testResult3 << "\n";
 
 	std::cout << "Press any key to exit...\n";
