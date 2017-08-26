@@ -41,7 +41,7 @@ public:
 			strArr.push_back(newRow);
 		}
 
-		for (int i = 0; i < s.length(); i++) {
+		for (size_t i = 0; i < s.length(); i++) {
 			std::cout << currRow << "\n";
 			strArr[currRow - 1] += s[i];
 
@@ -52,7 +52,9 @@ public:
 			fillDirection ? currRow-- : currRow++;
 		}
 
-		resultStr = strArr[0] + strArr[1] + strArr[2];
+		for (int i = 0; i < numRows; i++) {
+			resultStr += strArr[i];
+		}
 
 		return resultStr;
 	}
@@ -70,6 +72,8 @@ int main() {
 	int test1NumRows = 3;
 	std::string testResult1 =  solution.convert(testInput1, test1NumRows);
 	std::cout << "Test Result 1: " << testResult1 << "\n";
+
+	// TODO Test Case with numRows = 2
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
