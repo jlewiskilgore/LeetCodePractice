@@ -13,9 +13,9 @@ public:
 	int reverse(int x) {
 		std::string intStr;
 		std::string resultStr = "";
-		int result; 
+		long long result = 0;
 		int isNegative = 0;
-
+		
 		if (x < 0) {
 			isNegative = 1;
 			intStr = std::to_string(x * -1);
@@ -23,14 +23,20 @@ public:
 		else {
 			intStr = std::to_string(x);
 		}
-
+		
 		for (int i = intStr.length() - 1; i >= 0; i--) {
 			resultStr += intStr[i];
 		}
 
-		result = stoi(resultStr);
-
-		return isNegative ? result * -1 : result;
+		// Convert result to Long Long
+		result = stoll(resultStr);
+		
+		if (result > INT_MAX || result < INT_MIN) {
+			return 0;
+		}
+		else {
+			return isNegative ? result * -1 : result;
+		}
 	}
 };
 
