@@ -18,12 +18,23 @@ class Solution {
 public:
 	bool isMatch(std::string s, std::string p) {
 		bool matchFound;
+		int searchLength = s.length();
+		std::string subStrToCheck;
 
 		if (s.length() > p.length()) {
 			matchFound = 0;
 		}
 		else if (s == p) {
 			matchFound = 1;
+		}
+		else {
+			matchFound = 0;
+			for (int i = 0; i < p.length() - searchLength + 1; i++) {
+				subStrToCheck = p.substr(i, searchLength);
+				if (subStrToCheck == s) {
+					matchFound = 1;
+				}
+			}
 		}
 
 		return matchFound;
@@ -35,17 +46,27 @@ int main() {
 
 	/*
 	Test Case 1:
-	Input: 
+	Input: "aa", "a"
+	Expected Output: false
 	*/
 	bool testResult1 = solution.isMatch("aa", "a");
 	std::cout << "Test Result 1: " << testResult1 << "\n";
 
 	/*
 	Test Case 2:
-	Input:
+	Input: "aa", "aa"
+	Expected Output: true
 	*/
 	bool testResult2 = solution.isMatch("aa", "aa");
 	std::cout << "Test Result 2: " << testResult2 << "\n";
+
+	/*
+	Test Case 3:
+	Input: "cd", "aabbccdd"
+	Expected Output: true
+	*/
+	bool testResult3 = solution.isMatch("cd", "aabbccdd");
+	std::cout << "Test Result 3: " << testResult3 << "\n";
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
