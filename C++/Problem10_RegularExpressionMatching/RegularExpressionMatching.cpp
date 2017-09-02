@@ -31,13 +31,33 @@ public:
 			matchFound = 0;
 			for (int i = 0; i < p.length() - searchLength + 1; i++) {
 				subStrToCheck = p.substr(i, searchLength);
+
 				if (subStrToCheck == s) {
 					matchFound = 1;
+				}
+				else if ((subStrToCheck.find('.') != std::string::npos) && !matchFound) {
+					matchFound = checkDotWildcards(subStrToCheck, s);
 				}
 			}
 		}
 
 		return matchFound;
+	}
+
+private:
+	int checkDotWildcards(std::string str, std::string checkStr) {
+		int dotWildcardMatchFound = 0;
+		std::string strNoWildcard = "";
+		std::string checkStrNoWildcard = "";
+
+		for (int i = 0; i < str.length(); i++) {
+			if (str[i] != '.') {
+				strNoWildcard += str[i];
+				checkStrNoWildcard += checkStr[i];
+			}
+		}
+
+		return (strNoWildcard == checkStrNoWildcard);
 	}
 };
 
@@ -67,6 +87,14 @@ int main() {
 	*/
 	bool testResult3 = solution.isMatch("cd", "aabbccdd");
 	std::cout << "Test Result 3: " << testResult3 << "\n";
+
+	/*
+	Test Case 4:
+	Input: "aa", "a."
+	Expected Output: true
+	*/
+	bool testResult4 = solution.isMatch("aa", "a.");
+	std::cout << "Test Result 4: " << testResult4 << "\n";
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
