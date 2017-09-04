@@ -38,6 +38,9 @@ public:
 				else if ((subStrToCheck.find('.') != std::string::npos) && !matchFound) {
 					matchFound = checkDotWildcards(subStrToCheck, s);
 				}
+				else if ((subStrToCheck.find('*') != std::string::npos) && !matchFound) {
+					matchFound = checkStarWildcards(subStrToCheck, s);
+				}
 			}
 		}
 
@@ -58,6 +61,18 @@ private:
 		}
 
 		return (strNoWildcard == checkStrNoWildcard);
+	}
+
+	int checkStarWildcards(std::string str, std::string checkStr) {
+		int starWildcardMatchFound = 0;
+
+		for (int i = 0; i < str.length(); i++) {
+			if (str[i] == '*') {
+				std::cout << "star wc found \n";
+			}
+		}
+
+		return starWildcardMatchFound;
 	}
 };
 
@@ -95,6 +110,15 @@ int main() {
 	*/
 	bool testResult4 = solution.isMatch("aa", "a.");
 	std::cout << "Test Result 4: " << testResult4 << "\n";
+
+	/*
+	Test Case 5:
+	Input: "abc", "a*c"
+	Expected Output: true
+	*/
+	bool testResult5 = solution.isMatch("abc", "a*c");
+	std::cout << "Test Result 5: " << testResult5 << "\n";
+
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
