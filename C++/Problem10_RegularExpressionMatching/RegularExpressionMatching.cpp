@@ -65,14 +65,27 @@ private:
 
 	int checkStarWildcards(std::string str, std::string checkStr) {
 		int starWildcardMatchFound = 0;
+		std::string prevChar;
+		std::string strNoWildcard = "";
+		std::string checkStrNoWildcard = "";
 
 		for (int i = 0; i < str.length(); i++) {
-			if (str[i] == '*') {
-				std::cout << "star wc found \n";
+			if (i != 0 && str[i] == '*') {
+				prevChar = str[i - 1];
+				
+			}
+			else if (i == 0 && str[i] == '*') {
+				return starWildcardMatchFound;
+			}
+			else {
+				strNoWildcard += str[i];
+				checkStrNoWildcard += checkStr[i];
 			}
 		}
 
-		return starWildcardMatchFound;
+		std::cout << "no wc: " << strNoWildcard << ", check no wc: " << checkStrNoWildcard << "\n";
+
+		return (strNoWildcard == checkStrNoWildcard);
 	}
 };
 
@@ -116,7 +129,7 @@ int main() {
 	Input: "abc", "a*c"
 	Expected Output: true
 	*/
-	bool testResult5 = solution.isMatch("abc", "a*c");
+	bool testResult5 = solution.isMatch("abc", "*a*c");
 	std::cout << "Test Result 5: " << testResult5 << "\n";
 
 
