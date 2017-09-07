@@ -29,17 +29,19 @@ public:
 		}
 		else {
 			matchFound = 0;
-			for (int i = 0; i < p.length() - searchLength + 1; i++) {
-				subStrToCheck = p.substr(i, searchLength);
+			for (int i = 0; i < p.length(); i++) {
+				for (int j = 0; j < p.length(); j++) {
+					subStrToCheck = p.substr(i, j);
 
-				if (subStrToCheck == s) {
-					matchFound = 1;
-				}
-				else if ((subStrToCheck.find('.') != std::string::npos) && !matchFound) {
-					matchFound = checkDotWildcards(subStrToCheck, s);
-				}
-				else if ((subStrToCheck.find('*') != std::string::npos) && !matchFound) {
-					matchFound = checkStarWildcards(subStrToCheck, s);
+					if (subStrToCheck == s) {
+						matchFound = 1;
+					}
+					else if ((subStrToCheck.find('.') != std::string::npos) && !matchFound) {
+						matchFound = checkDotWildcards(subStrToCheck, s);
+					}
+					else if ((subStrToCheck.find('*') != std::string::npos) && !matchFound) {
+						matchFound = checkStarWildcards(subStrToCheck, s);
+					}
 				}
 			}
 		}
@@ -64,17 +66,24 @@ private:
 	}
 
 	int checkStarWildcards(std::string str, std::string checkStr) {
+		std::cout << str << ", checking: "<< checkStr << "\n";
+
 		int starWildcardMatchFound = 0;
+		int useWildcard = 0;
 		char prevChar;
 		std::string strNoWildcard = "";
 		std::string checkStrNoWildcard = "";
 
 		for (int i = 0; i < str.length(); i++) {
 			if (i != 0 && str[i] == '*') {
-				prevChar = str[i - 1];
+				if (!useWildcard) {
+					useWildcard = 1;
+					prevChar = str[i - 1];
+				}
+
 				checkStrNoWildcard += checkStr[i];
 				
-				if (checkStr[i] != str[i] && prevChar == checkStr[i]) {
+				if (checkStr[i] != str[i] && prevChar == checkStr[i] && useWildcard) {
 					strNoWildcard += prevChar;
 				}
 				else if(checkStr[i] == str[i]) {
@@ -86,6 +95,10 @@ private:
 			}
 			else if (i == 0 && str[i] == '*') {
 				return starWildcardMatchFound;
+			}
+			else if (useWildcard) {
+				strNoWildcard += prevChar;
+				checkStrNoWildcard += checkStr[i];
 			}
 			else {
 				strNoWildcard += str[i];
@@ -149,6 +162,14 @@ int main() {
 	*/
 	bool testResult6 = solution.isMatch("aab", "c*a*b");
 	std::cout << "Test Result 6: " << testResult6 << "\n";
+
+	/*
+	Test Case 7:
+	Input: "aaab", "a*b
+	Expected Output: true
+	*/
+	bool testResult7 = solution.isMatch("aaab", "a*b");
+	std::cout << "Test Result 7: " << testResult7 << "\n";
 
 
 	std::cout << "Press any key to exit...\n";
