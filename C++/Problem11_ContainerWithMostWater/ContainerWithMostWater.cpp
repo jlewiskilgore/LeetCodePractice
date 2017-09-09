@@ -21,18 +21,29 @@ Note: You may not slant the container and n is at least 2.
 class Solution {
 public:
 	int maxArea(std::vector<int>& height) {
-		int minHeight = height[0];
-		int area = 0;
+		int minHeight;
+		int area;
+		int numPoints;
+		int maxArea = 0;
 
-		for (int i = 1; i < height.size(); i++) {
-			if (height[i] < minHeight) {
-				minHeight = height[i];
+		for (int i = 0; i < height.size() - 1; i++) {
+			minHeight = height[i];
+			area = 0;
+			numPoints = 1;
+			for (int j = i + 1; j < height.size(); j++) {
+				if (height[j] < minHeight) {
+					minHeight = height[j];
+				}
+				numPoints++;
+			}
+			area = minHeight * (numPoints - 1);
+
+			if (area > maxArea) {
+				maxArea = area;
 			}
 		}
 
-		area = minHeight * (height.size() - 1);
-
-		return area;
+		return maxArea;
 	}
 };
 
@@ -56,6 +67,16 @@ int main() {
 	std::vector<int> test2 = { 1, 2, 4, 3 };
 	int testResult2 = solution.maxArea(test2);
 	std::cout << "Test Result 2: " << testResult2 << "\n";
+
+	/*
+	Test Case 3
+	Input: [3,2,1,3]
+	Expected Output: 9
+	*/
+	std::vector<int> test3 = { 3, 2, 1, 3 };
+	int testResult3 = solution.maxArea(test3);
+	std::cout << "Test Result 3: " << testResult3 << "\n";
+
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
