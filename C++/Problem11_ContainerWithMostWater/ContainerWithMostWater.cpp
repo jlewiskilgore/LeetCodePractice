@@ -25,20 +25,18 @@ public:
 		int area;
 		int maxArea = 0;
 
-		for (int i = 0; i < height.size() - 1; i++) {
-			minHeight = height[i];
-			area = 0;
+		int leftPosition = 0;
+		int rightPosition = height.size() - 1;
 
-			for (int j = i + 1; j < height.size(); j++) {
-				height[i] > height[j] ? minHeight = height[j] : minHeight = height[i];
-				//minHeight = std::min(height[i], height[j]);
-				
-				area = minHeight * (j - i);
+		while (leftPosition < rightPosition) {
+			minHeight = std::min(height[leftPosition], height[rightPosition]);
+			area = minHeight * (rightPosition - leftPosition);
 
-				if (area > maxArea) {
-					maxArea = area;
-				}
+			if (area > maxArea) {
+				maxArea = area;
 			}
+
+			(height[leftPosition] < height[rightPosition]) ? leftPosition++ : rightPosition--;
 		}
 
 		return maxArea;
