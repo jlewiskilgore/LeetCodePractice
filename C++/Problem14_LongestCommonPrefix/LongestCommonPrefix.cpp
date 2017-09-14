@@ -13,16 +13,35 @@ string amongst an array of string.
 class Solution {
 public:
 	std::string longestCommonPrefix(std::vector<std::string>& strs) {
-		std::string longestPrefix;
+		std::string longestCommonPrefix;
+		std::string commonPrefix;
 
 		if (strs.size() == 0) {
-			longestPrefix = "";
+			longestCommonPrefix = "";
 		}
 		else if (strs.size() == 1) {
-			longestPrefix = strs[0];
+			longestCommonPrefix = strs[0];
+		}
+		else {
+			longestCommonPrefix = strs[0];
+
+			for (int i = 1; i < strs.size(); i++) {
+				commonPrefix = "";
+				for (int j = 0; j < longestCommonPrefix.length(); j++) {
+					if (longestCommonPrefix[j] == strs[i][j]) {
+						commonPrefix += strs[i][j];
+					}
+					else {
+						break;
+					}
+				}
+				if (commonPrefix < longestCommonPrefix) {
+					longestCommonPrefix = commonPrefix;
+				}
+			}
 		}
 
-		return longestPrefix;
+		return longestCommonPrefix;
 	}
 };
 
@@ -46,6 +65,15 @@ int main() {
 	std::vector<std::string> testInput2 = { "a" };
 	std::string testResult2 = solution.longestCommonPrefix(testInput2);
 	std::cout << "Test Result 2: " << testResult2 << "\n";
+
+	/*
+	Test Case 3
+	Input: ["abc", "abd"]
+	Expected Output: "ab"
+	*/
+	std::vector<std::string> testInput3 = { "abc", "abd" };
+	std::string testResult3 = solution.longestCommonPrefix(testInput3);
+	std::cout << "Test Result 3: " << testResult3 << "\n";
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
