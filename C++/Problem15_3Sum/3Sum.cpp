@@ -12,6 +12,7 @@ Note: The solution set must not contain duplicate triplets.
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 class Solution {
 public:
@@ -33,7 +34,7 @@ public:
 					checkTriplet.push_back(nums[k]);
 					checkSum = vectorSum(checkTriplet);
 
-					if (checkSum == 0) {
+					if (checkSum == 0 && !isTripletDuplicate(checkTriplet, solutionTriplets)) {
 						solutionTriplets.push_back(checkTriplet);
 					}
 				}
@@ -51,6 +52,24 @@ private:
 		}
 
 		return sum;
+	}
+
+	int isTripletDuplicate(std::vector<int> testVect, std::vector<std::vector<int>> vectList) {
+		std::vector<int> vect1 = testVect;
+		std::vector<int> vect2;
+
+		std::sort(vect1.begin(), vect1.begin() + 3);
+
+		for (int i = 0; i < vectList.size(); i++) {
+			vect2 = vectList[i];
+			std::sort(vect2.begin(), vect2.begin() + 3);
+
+			if (vect1 == vect2) {
+				return 1;
+			}
+		 }
+
+		return 0;
 	}
 };
 
