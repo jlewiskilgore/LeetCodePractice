@@ -25,17 +25,34 @@ public:
 			return solutionTriplets;
 		}
 
-		for (int i = 0; i < nums.size() - 2; i++) {
-			for (int j = i + 1; j < nums.size() - 1; j++) {
-				for (int k = j + 1; k < nums.size(); k++) {
-					checkTriplet = {};
-					checkTriplet.push_back(nums[i]);
-					checkTriplet.push_back(nums[j]);
-					checkTriplet.push_back(nums[k]);
-					checkSum = vectorSum(checkTriplet);
+		std::sort(nums.begin(), nums.end());
 
-					if (checkSum == 0 && !isTripletDuplicate(checkTriplet, solutionTriplets)) {
+		for (int i = 0; i < nums.size() - 2; i++) {
+			if (i == 0 || nums[i] > nums[i - 1]) {
+				int j = i + 1;
+				int k = nums.size() - 1;
+
+				while (j < k) {
+					if (nums[i] + nums[j] + nums[k] == 0) {
+						checkTriplet = { nums[i], nums[j], nums[k] };
 						solutionTriplets.push_back(checkTriplet);
+
+						j++;
+						k--;
+
+						// Look for a different value for j and k
+						while (j < k && nums[j] == nums[j - 1]) {
+							j++;
+						}
+						while (j < k && nums[k] == nums[k + 1]) {
+							k--;
+						}
+					}
+					else if (nums[i] + nums[j] + nums[k] < 0) {
+						j++;
+					}
+					else {
+						k--;
 					}
 				}
 			}
@@ -43,6 +60,8 @@ public:
 
 		return solutionTriplets;
 	}
+// Note: Private methods used for brute force method
+/*
 private:
 	int vectorSum(std::vector<int> vect) {
 		int sum = 0;
@@ -71,11 +90,15 @@ private:
 
 		return 0;
 	}
+	*/
 };
 
 
 int main() {
 	Solution solution;
+
+	std::vector<int> test1 = { -1, 0, 1 };
+	std::vector<int> test2 = { 1, 0, -1 };
 
 	/*
 	Test Case 1
