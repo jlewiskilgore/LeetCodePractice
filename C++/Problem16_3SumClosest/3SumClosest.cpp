@@ -18,29 +18,30 @@ public:
 	int threeSumClosest(std::vector<int>& nums, int target) {
 		int closestSum;
 		int nextSum;
-		int minDifference;
+		int minDifference = INT_MAX;
+		int nextDifference;
 
 		std::sort(nums.begin(), nums.end());
 		closestSum = nums[0] + nums[1] + nums[nums.size() - 1];
-		minDifference = abs(closestSum - target);
 
-		for (int i = 0; i < nums.size(); i++) {
+		for (int i = 0; i < nums.size() - 2; i++) {
 			int j = i + 1;
 			int k = nums.size() - 1;
 
 			while (j < k) {
 				nextSum = nums[i] + nums[j] + nums[k];
+				nextDifference = nextSum - target;
 
-				if (abs(nextSum - target) < minDifference) {
+				if (abs(nextDifference) < minDifference) {
 					closestSum = nextSum;
-					minDifference = abs(closestSum - target);
+					minDifference = abs(nextDifference);
 				}
 
-				if (closestSum == 0) {
-					return 0;
+				if (minDifference == 0) {
+					return closestSum;
 				}
 					
-				if(nextSum <= target) {
+				if(nextDifference < 0) {
 					j++;
 				}
 				else {
@@ -82,6 +83,15 @@ int main() {
 	std::vector<int> testInput3 = { 0, 2, 1, -3 };
 	int testResult3 = solution.threeSumClosest(testInput3, 1);
 	std::cout << "Test Result 3: " << testResult3 << "\n";
+
+	/*
+	Test Case 4
+	Input: S = { 0, 5, -1, -2, 4, -1, 0, -3, 4, -5 }, target = 1
+	Expected Output: 1
+	*/
+	std::vector<int> testInput4 = { 0, 5, -1, -2, 4, -1, 0, -3, 4, -5 };
+	int testResult4 = solution.threeSumClosest(testInput4, 1);
+	std::cout << "Test Result 4: " << testResult4 << "\n";
 
 
 	std::cout << "Press any key to exit...\n";
