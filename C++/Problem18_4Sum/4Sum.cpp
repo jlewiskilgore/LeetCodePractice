@@ -20,12 +20,39 @@ public:
 		std::vector<std::vector<int>> resultQuads = {};
 		std::vector<int> checkQuad;
 		int checkSum;
+		int k;
+		int l;
 
 		if (nums.size() < 4) {
 			return resultQuads;
 		}
 
 		std::sort(nums.begin(), nums.end());
+
+		for (int i = 0; i < nums.size() - 3; i++) {
+			for (int j = i + 1; j < nums.size() - 2; j++) {
+				k = j + 1;
+				l = nums.size() - 1;
+
+				while (k < l) {
+					checkSum = nums[i] + nums[j] + nums[k] + nums[l];
+
+					if (checkSum == target) {
+						checkQuad = { nums[i], nums[j], nums[k], nums[l] };
+						resultQuads.push_back(checkQuad);
+
+						j++;
+						k--;
+					}
+					else if (checkSum < target) {
+						k++;
+					}
+					else {
+						l--;
+					}
+				}
+			}
+		}
 
 		return resultQuads;
 	}
