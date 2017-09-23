@@ -31,27 +31,37 @@ public:
 
 		for (int i = 0; i < nums.size() - 3; i++) {
 			for (int j = i + 1; j < nums.size() - 2; j++) {
-				k = j + 1;
-				l = nums.size() - 1;
+				if (j == 1 || nums[j] > nums[j - 1]) {
+					k = j + 1;
+					l = nums.size() - 1;
 
-				while (k < l) {
-					checkSum = nums[i] + nums[j] + nums[k] + nums[l];
+					while (k < l) {
+						checkSum = nums[i] + nums[j] + nums[k] + nums[l];
 
-					if (checkSum == target) {
-						checkQuad = { nums[i], nums[j], nums[k], nums[l] };
-						resultQuads.push_back(checkQuad);
+						if (checkSum == target) {
+							checkQuad = { nums[i], nums[j], nums[k], nums[l] };
+							resultQuads.push_back(checkQuad);
 
-						j++;
-						k--;
-					}
-					else if (checkSum < target) {
-						k++;
-					}
-					else {
-						l--;
+							k++;
+							l--;
+
+							while (k < l && nums[k] == nums[k - 1]) {
+								k++;
+							}
+							while (k < l && nums[l] == nums[l - 1]) {
+								l--;
+							}
+						}
+						else if (checkSum < target) {
+							k++;
+						}
+						else {
+							l--;
+						}
 					}
 				}
 			}
+			
 		}
 
 		return resultQuads;
@@ -78,6 +88,28 @@ int main() {
 		std::cout << "  [";
 		for (int j = 0; j < testResult1[i].size(); j++) {
 			std::cout << testResult1[i][j] << " ";
+		}
+		std::cout << "] \n";
+	}
+	std::cout << "] \n";
+
+	/*
+	Test Case 2
+	Input: S = [-3, -2, -1, 0, 0, 1, 2, 3], target = 0
+	Expected Output:
+	[
+	[-1, 0, 0, 1],
+	[-2, -1, 1, 2],
+	[-2, 0, 0, 2]
+	}
+	*/
+	std::vector<int> testInput2 = { -3, -2, -1, 0, 0, 1, 2, 3 };
+	std::vector<std::vector<int>> testResult2 = solution.fourSum(testInput2, 0);
+	std::cout << "[ \n";
+	for (int i = 0; i < testResult2.size(); i++) {
+		std::cout << "  [";
+		for (int j = 0; j < testResult2[i].size(); j++) {
+			std::cout << testResult2[i][j] << " ";
 		}
 		std::cout << "] \n";
 	}
