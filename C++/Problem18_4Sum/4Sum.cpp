@@ -30,33 +30,37 @@ public:
 		std::sort(nums.begin(), nums.end());
 
 		for (int i = 0; i < nums.size() - 3; i++) {
-			for (int j = i + 1; j < nums.size() - 2; j++) {
-				if (j == 1 || nums[j] > nums[j - 1]) {
-					k = j + 1;
-					l = nums.size() - 1;
+			if (i == 0 || nums[i] > nums[i - 1]) {
+				for (int j = i + 1; j < nums.size() - 2; j++) {
+					if (j == i + 1 || nums[j] > nums[j - 1]) {
+						k = j + 1;
+						l = nums.size() - 1;
 
-					while (k < l) {
-						checkSum = nums[i] + nums[j] + nums[k] + nums[l];
+						while (k < l) {
+							checkSum = nums[i] + nums[j] + nums[k] + nums[l];
 
-						if (checkSum == target) {
-							checkQuad = { nums[i], nums[j], nums[k], nums[l] };
-							resultQuads.push_back(checkQuad);
+							if (checkSum == target) {
+								std::cout << "i: " << i << " j: " << j << " k: " << k << " l: " << l << "\n";
 
-							k++;
-							l--;
+								checkQuad = { nums[i], nums[j], nums[k], nums[l] };
+								resultQuads.push_back(checkQuad);
 
-							while (k < l && nums[k] == nums[k - 1]) {
+								k++;
+								l--;
+
+								while (k < l && nums[k] == nums[k - 1]) {
+									k++;
+								}
+								while (k < l && nums[l] == nums[l - 1]) {
+									l--;
+								}
+							}
+							else if (checkSum < target) {
 								k++;
 							}
-							while (k < l && nums[l] == nums[l - 1]) {
+							else {
 								l--;
 							}
-						}
-						else if (checkSum < target) {
-							k++;
-						}
-						else {
-							l--;
 						}
 					}
 				}
@@ -98,10 +102,10 @@ int main() {
 	Input: S = [-3, -2, -1, 0, 0, 1, 2, 3], target = 0
 	Expected Output:
 	[
-	[-1, 0, 0, 1],
-	[-2, -1, 1, 2],
-	[-2, 0, 0, 2]
-	}
+		[-1, 0, 0, 1],
+		[-2, -1, 1, 2],
+		[-2, 0, 0, 2]
+	]
 	*/
 	std::vector<int> testInput2 = { -3, -2, -1, 0, 0, 1, 2, 3 };
 	std::vector<std::vector<int>> testResult2 = solution.fourSum(testInput2, 0);
@@ -110,6 +114,48 @@ int main() {
 		std::cout << "  [";
 		for (int j = 0; j < testResult2[i].size(); j++) {
 			std::cout << testResult2[i][j] << " ";
+		}
+		std::cout << "] \n";
+	}
+	std::cout << "] \n";
+
+	/*
+	Test Case 3
+	Input: S = [-1, 0, 1, 2, -1, -4], target = -1
+	Expected Output: 
+	[
+		[-4, 0, 1, 2], 
+		[-1, -1, 0, 1]
+	]
+	*/
+	std::vector<int> testInput3 = { -1, 0, 1, 2, -1, -4 };
+	std::vector<std::vector<int>> testResult3 = solution.fourSum(testInput3, -1);
+	std::cout << "[ \n";
+	for (int i = 0; i < testResult3.size(); i++) {
+		std::cout << "  [";
+		for (int j = 0; j < testResult3[i].size(); j++) {
+			std::cout << testResult3[i][j] << " ";
+		}
+		std::cout << "] \n";
+	}
+	std::cout << "] \n";
+
+	/*
+	Test Case 4
+	Input: S = [-1, -5, -5, -3, 2, 5, 0, 4], target = -7
+	Expected Output:
+	[
+	[-5, -5, -1, 4],
+	[-5, -3, -1, 2]
+	]
+	*/
+	std::vector<int> testInput4 = { -1, -5, -5, -3, 2, 5, 0, 4 };
+	std::vector<std::vector<int>> testResult4 = solution.fourSum(testInput4, -7);
+	std::cout << "[ \n";
+	for (int i = 0; i < testResult4.size(); i++) {
+		std::cout << "  [";
+		for (int j = 0; j < testResult4[i].size(); j++) {
+			std::cout << testResult4[i][j] << " ";
 		}
 		std::cout << "] \n";
 	}
