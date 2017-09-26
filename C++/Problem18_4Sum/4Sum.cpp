@@ -40,8 +40,6 @@ public:
 							checkSum = nums[i] + nums[j] + nums[k] + nums[l];
 
 							if (checkSum == target) {
-								std::cout << "i: " << i << " j: " << j << " k: " << k << " l: " << l << "\n";
-
 								checkQuad = { nums[i], nums[j], nums[k], nums[l] };
 								resultQuads.push_back(checkQuad);
 
