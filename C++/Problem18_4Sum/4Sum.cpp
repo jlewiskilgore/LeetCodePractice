@@ -51,7 +51,7 @@ public:
 								while (k < l && nums[k] == nums[k - 1]) {
 									k++;
 								}
-								while (k < l && nums[l] == nums[l - 1]) {
+								while (k < l && nums[l] == nums[l + 1]) {
 									l--;
 								}
 							}
@@ -156,6 +156,29 @@ int main() {
 		std::cout << "  [";
 		for (int j = 0; j < testResult4[i].size(); j++) {
 			std::cout << testResult4[i][j] << " ";
+		}
+		std::cout << "] \n";
+	}
+	std::cout << "] \n";
+
+	/*
+	Test Case 5
+	Input: S = [-1, 0, -5, -2, -2, -4, 0, 1, -2], target = -9
+	Expected Output:
+	[
+	[-5, -4, -1, 1],
+	[-5, -4, 0, 0],
+	[-5, -2, -2, 0],
+	[-4, -2, -2, -1]
+	]
+	*/
+	std::vector<int> testInput5 = { -1, 0, -5, -2, -2, -4, 0, 1, -2 };
+	std::vector<std::vector<int>> testResult5 = solution.fourSum(testInput5, -9);
+	std::cout << "[ \n";
+	for (int i = 0; i < testResult5.size(); i++) {
+		std::cout << "  [";
+		for (int j = 0; j < testResult5[i].size(); j++) {
+			std::cout << testResult5[i][j] << " ";
 		}
 		std::cout << "] \n";
 	}
