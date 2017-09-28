@@ -29,30 +29,33 @@ struct ListNode {
 class Solution {
 public:
 	ListNode* removeNthFromEnd(ListNode* head, int n) {
-		ListNode* resultList = new ListNode(NULL);
-		ListNode* zeroNode = new ListNode(0);
-		int nodeNum = 1;
+		ListNode* headCopy;
+		ListNode* resultList;
+		ListNode* nextNode;
 
-		while (head != zeroNode) {
-			ListNode* nextNode = new ListNode(head->val);
-			std::cout << head->val << "\n";
+		headCopy = head;
+		resultList = head;
 
-			if (nodeNum == 1 && n != 1) {
-				resultList->next = nextNode;
-			}
-
-			if (head->next) {
-				head = head->next;
-			}
-			else {
-				head = zeroNode;
-			}
-			
-			nodeNum++;
+		// Move headCopy to Nth node, so that headCopy is
+		// n nodes ahead of resultList
+		for (int i = 0; i < n; i++) {
+			headCopy = headCopy->next;
 		}
 
-		std::cout << "Result Head: " << resultList->next->val << "\n";
-		return resultList->next;
+		if (headCopy == NULL) {
+			head = head->next;
+		}
+		else {
+			while (headCopy->next != NULL) {
+				headCopy = headCopy->next;
+				resultList = resultList->next;
+			}
+			// resultList is now at Nth node, skip this node in resultList
+			nextNode = resultList->next;
+			resultList->next = nextNode->next;
+			nextNode->next = NULL;
+		}
+		return head;
 	}
 };
 
