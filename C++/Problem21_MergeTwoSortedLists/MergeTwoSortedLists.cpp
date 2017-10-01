@@ -31,16 +31,19 @@ public:
 
 		// Set first element
 		if (l1->val < l2->val) {
+			std::cout << "if ";
 			resultList = l1;
 			l1 = l1->next;
 		}
 		else {
+			std::cout << "else ";
 			resultList = l2;
 			l2 = l2->next;
 		}
 
 		// Find which list next element should be from
 		while (l1 && l2) {
+			std::cout << "while ";
 			if (l1->val < l2->val) {
 				mergedList = l1;
 				l1 = l1->next;
@@ -53,12 +56,15 @@ public:
 		}
 
 		// Empty remaining list
-		while (l1) {
+		while (NULL != l1) {
+			std::cout << "empty l1 ";
 			mergedList = l1;
+			std::cout << "ml: " << mergedList->val << "\n";
 			l1 = l1->next;
 			mergedList = mergedList->next;
 		}
 		while (l2) {
+			std::cout << "empty l2 ";
 			mergedList = l2;
 			l2 = l2->next;
 			mergedList = mergedList->next;
@@ -90,8 +96,22 @@ int main() {
 	l2n2->next = l2n3;
 	l2n3->next = NULL;
 
+	/*
 	ListNode* testResult1 = solution.mergeTwoLists(l1n1, l2n1);
 	std::cout << testResult1->val << "\n";
+	*/
+
+	/*
+	Test Case 2
+	Input: [2] and [1]
+	Expected Output: [1, 2]
+	*/
+	ListNode* t2l1n1 = new ListNode(2);
+
+	ListNode* t2l2n1 = new ListNode(1);
+
+	ListNode* testResult1 = solution.mergeTwoLists(t2l1n1, t2l2n1);
+	std::cout << testResult1->val << " " << testResult1->next->val << "\n";
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
