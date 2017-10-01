@@ -56,18 +56,11 @@ public:
 		}
 
 		// Empty remaining list
-		while (NULL != l1) {
-			std::cout << "empty l1 ";
-			mergedList = l1;
-			std::cout << "ml: " << mergedList->val << "\n";
-			l1 = l1->next;
-			mergedList = mergedList->next;
+		if(l1) {
+			resultList->next = l1;
 		}
-		while (l2) {
-			std::cout << "empty l2 ";
-			mergedList = l2;
-			l2 = l2->next;
-			mergedList = mergedList->next;
+		if(l2) {
+			resultList->next = l2;
 		}
 
 		return resultList;
