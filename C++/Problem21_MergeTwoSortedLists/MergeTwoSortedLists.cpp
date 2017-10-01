@@ -19,8 +19,10 @@ struct ListNode {
 class Solution {
 public:
 	ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-		ListNode* mergedList = new ListNode(NULL);
+		ListNode* mergedList = NULL;
 		ListNode* resultList = NULL;
+		ListNode* l1Temp = l1;
+		ListNode* l2Temp = l2;
 
 		if (!l1) {
 			return l2;
@@ -30,37 +32,37 @@ public:
 		}
 
 		// Set first element
-		if (l1->val < l2->val) {
-			std::cout << "if ";
-			resultList = l1;
-			l1 = l1->next;
+		if (l1Temp->val <= l2Temp->val) {
+			resultList = l1Temp;
+			mergedList = l1Temp;
+			l1Temp = l1Temp->next;
 		}
 		else {
-			std::cout << "else ";
-			resultList = l2;
-			l2 = l2->next;
+			resultList = l2Temp;
+			mergedList = l2Temp;
+			l2Temp = l2Temp->next;
 		}
 
 		// Find which list next element should be from
-		while (l1 && l2) {
-			std::cout << "while ";
-			if (l1->val < l2->val) {
-				mergedList = l1;
-				l1 = l1->next;
+		while (l1Temp && l2Temp) {
+			if (l1Temp->val <= l2Temp->val) {
+				mergedList->next = l1Temp;
+				mergedList = l1Temp;
+				l1Temp = l1Temp->next;
 			}
 			else {
-				mergedList = l2;
-				l2 = l2->next;
+				mergedList->next = l2Temp;
+				mergedList = l2Temp;
+				l2Temp = l2Temp->next;
 			}
-			mergedList = mergedList->next;
 		}
 
 		// Empty remaining list
-		if(l1) {
-			resultList->next = l1;
+		if(l1Temp) {
+			mergedList->next = l1Temp;
 		}
-		if(l2) {
-			resultList->next = l2;
+		if(l2Temp) {
+			mergedList->next = l2Temp;
 		}
 
 		return resultList;
@@ -104,7 +106,7 @@ int main() {
 	ListNode* t2l2n1 = new ListNode(1);
 
 	ListNode* testResult1 = solution.mergeTwoLists(t2l1n1, t2l2n1);
-	std::cout << testResult1->val << " " << testResult1->next->val << "\n";
+	std::cout << testResult1->val << "\n";
 
 	std::cout << "Press any key to exit...\n";
 	std::cin.get();
