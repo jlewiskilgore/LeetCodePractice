@@ -17,29 +17,37 @@ public:
 		int dividendLeft = dividend;
 		int signValue = 1;
 
+		long long absDividendLeft = abs((long long)dividend);
+		long long absDivisor = abs((long long)divisor);
+
+		bool dividendNegative = dividend < 0;
+		bool divisorNegative = divisor < 0;
+
+		/*
+		std::cout << absDividendLeft << "\n";
+		std::cout << absDivisor << "\n";
+
+		std::cout << dividendNegative << "\n";
+		std::cout << divisorNegative << "\n";
+		*/
+
+		if (divisor == 0 || (dividend == INT_MIN && divisor == -1)) {
+			return INT_MAX;
+		}
+
 		if (dividend == 0) {
 			return 0;
 		}
-		else if (dividend < 0 && divisor < 0) {
-			tempDivisor = tempDivisor * -1;
-			dividendLeft = dividendLeft * -1;
+		else if (dividendNegative && divisorNegative) {
+			signValue = 1;
 		}
-		else if (dividend < 0 || divisor < 0) {
+		else if (dividendNegative || divisorNegative) {
 			signValue = -1;
-
-			if (divisor < 0) {
-				tempDivisor = tempDivisor * -1;
-			}
-			else {
-				dividendLeft = dividendLeft * -1;
-			}
-
-			std::cout << dividendLeft << " " << tempDivisor << "\n";
 		}
 
-		while (dividendLeft >= tempDivisor) {
+		while (absDividendLeft >= absDivisor) {
 			divisorCount++;
-			dividendLeft -= tempDivisor;
+			absDividendLeft -= absDivisor;
 		};
 
 		return divisorCount * signValue;
@@ -54,7 +62,7 @@ int main() {
 	Input: 6 / 2
 	Expected Output: 3
 	*/
-	int testResult1 = solution.divide(-1, -1);
+	int testResult1 = solution.divide(-2147483648, 1);
 	std::cout << "Test Result 1: " << testResult1 << "\n";
 
 	std::cout << "Press any key...\n";
