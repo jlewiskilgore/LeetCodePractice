@@ -27,21 +27,35 @@ be represented as a string
 class Solution {
 public:
 	std::string countAndSay(int n) {
+		int repeatCount;
+
 		if (n == 0) {
 			return "";
 		}
 		std::string resultStr = "1";
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 1; i < n; i++) {
 			std::string tempStr = "";
-			
-			//Loop through resultStr
+			repeatCount = 1;
+			char tempChar = resultStr[0];
 
-			//Count number of repeated values
+			for (int j = 1; j < resultStr.length(); j++) {
+				if (resultStr[j] == tempChar) {
+					std::cout << "repeat found\n";
+					repeatCount++;
+				}
+				else {
+					tempStr += std::to_string(repeatCount);
+					tempStr += tempChar;
+					tempChar = resultStr[j];
+					repeatCount = 1;
+				}
+			}
 
-			//Print to tempStr in from count of int adjacent + value of int
+			tempStr += std::to_string(repeatCount);
+			tempStr += tempChar;
 
-			//Set resultStr to tempStr just built
+			resultStr = tempStr;
 		}
 
 		return resultStr;
