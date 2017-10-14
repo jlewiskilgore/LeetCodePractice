@@ -11,33 +11,17 @@ the contigous subarray [4,-1,2,1] has the largest sum = 6.
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 class Solution {
 public:
 	int maxSubArray(std::vector<int>& nums) {
-		int largestSum = INT_MIN;
-		int tempSum;
-		int largestTempSum;
+		int largestSum = nums[0];
+		int tempSum = nums[0];
 
-		if (nums.size() == 1) {
-			return nums[0];
-		}
-
-		for (int i = 0; i < nums.size(); i++) {
-			tempSum = nums[i];
-			largestTempSum = nums[i];
-
-			for (int j = i + 1; j < nums.size(); j++) {
-				tempSum += nums[j];
-
-				if (tempSum > largestTempSum) {
-					largestTempSum = tempSum;
-				}
-			}
-
-			if (largestTempSum > largestSum) {
-				largestSum = largestTempSum;
-			}
+		for (int i = 1; i < nums.size(); i++) {
+			tempSum = std::max(nums[i], tempSum + nums[i]);
+			largestSum = std::max(largestSum, tempSum);
 		}
 
 		return largestSum;
