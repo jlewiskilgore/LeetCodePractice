@@ -22,30 +22,23 @@ return 5
 class Solution {
 public:
 	int lengthOfLastWord(std::string s) {
-		int lastSpaceIdx;
-		int isSpaceFound = 0;
-		std::string resultStr = "";
+		int resultLength = 0;
 
-		if (s == "") {
-			return 0;
+		if (s.length() == 0) {
+			return resultLength;
 		}
-	
-		for (int i = s.length() - 1; i > 0; i--) {
-			if (s[i] == ' ') {
-				isSpaceFound = 1;
-				lastSpaceIdx = i;
-				break;
+		
+		for (int i = s.length() - 1; i >= 0; i--) {
+			if (s[i] != ' ') {
+				resultLength++;
+			}
+			else {
+				if (resultLength > 0) {
+					return resultLength;
+				}
 			}
 		}
-
-		if (isSpaceFound) {
-			resultStr = s.substr(lastSpaceIdx + 1, s.length() - lastSpaceIdx - 1);
-		}
-		else {
-			resultStr = s;
-		}
-
-		return resultStr.length();
+		return resultLength;
 	}
 };
 
@@ -57,7 +50,7 @@ int main() {
 	Input: "Hello World"
 	Expected Output: 5
 	*/
-	int testResult1 = solution.lengthOfLastWord("day");
+	int testResult1 = solution.lengthOfLastWord("Hello World");
 	std::cout << "Test Result 1: " << testResult1 << "\n";
 
 	std::cout << "Press any key to exit...\n";
